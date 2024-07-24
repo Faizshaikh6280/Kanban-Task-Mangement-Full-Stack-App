@@ -1,0 +1,32 @@
+import boardModel from '../models/boardModel.js';
+import coulmnModel from '../models/coulmnModel.js';
+
+export const createColumn = async function (req, res, next) {
+  try {
+    const { name, color, boardname } = req.body;
+
+    const board = await boardModel.findOne({ name: boardname });
+    if (!board) {
+      throw new Error('Board does not exists');
+    }
+
+    const newColumn = await coulmnModel.create({
+      name,
+      color,
+    });
+
+    // once column has been created add this column into respective board.
+    board.coulmns.push(newColumn._id);
+    await board.save();
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        newColumn,
+      },
+    });
+  } catch (error) {
+    res.send(error.message);
+    console.log('Error in createCoulmn 💥', error);
+  }
+};
