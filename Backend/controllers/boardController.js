@@ -3,6 +3,12 @@ import boardModel from '../models/boardModel.js';
 export const createBoard = async function (req, res, next) {
   try {
     const { name, userId } = req.body;
+
+    const board = await boardModel.findOne({ name, userId });
+    if (board) {
+      throw new Error('Board name already exists');
+    }
+
     const newBoard = await boardModel.create({
       name,
       userId,

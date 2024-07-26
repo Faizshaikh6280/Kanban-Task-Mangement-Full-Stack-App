@@ -4,10 +4,19 @@ import coulmnModel from '../models/coulmnModel.js';
 export const createColumn = async function (req, res, next) {
   try {
     const { name, color, boardname } = req.body;
+    const board = await boardModel
+      .findOne({ name: boardname })
+      .populate('coulmns');
 
-    const board = await boardModel.findOne({ name: boardname });
     if (!board) {
       throw new Error('Board does not exists');
+    }
+
+    const columnNames = board.coulmns.map((el) => el.name);
+    console.log(columnNames);
+
+    if (columnNames.includes(name)) {
+      throw new Error('Coulmn name already exists with this board.');
     }
 
     const newColumn = await coulmnModel.create({

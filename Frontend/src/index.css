@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+}
+.app-layout {
+  display: grid;
+  grid-template-columns: 25rem 1fr;
+  grid-template-rows: 8rem 1fr;
+  min-height: 100vh;
+}
+.sidebar {
+  min-height: 100vh;
+}
+.app-layout > * {
+  border: 2px solid black;
+}
+.main {
+  grid-column-start: 2;
+}
+
+@media screen and (max-width: 530px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 6rem 1fr;
+    position: relative;
+  }
+  .sidebar {
+    transform: translateX(-100%);
+    display: none;
+  }
+  .app-layout.menu .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(0);
+    display: block;
+    z-index: 1;
+    width: 20%;
+  }
+  .main,
+  .header {
+    grid-column-start: 1;
+  }
+}
