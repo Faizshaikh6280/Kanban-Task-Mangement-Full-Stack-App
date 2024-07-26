@@ -4,17 +4,10 @@ import Sidebar from '../components/Sidebar/Sidebar';
 
 function AppLayout() {
   return (
-    <div
-      className="app-layout"
-      onClick={(e) => {
-        console.log(e);
-        e.target.parentNode.classList.toggle('menu');
-      }}
-    >
+    <div className="app-layout">
       <Sidebar />
       <Header />
-      <main className="main">
-        main
+      <main className="main bg-custom-bg-main text-custom-text-2">
         <Outlet />
       </main>
     </div>

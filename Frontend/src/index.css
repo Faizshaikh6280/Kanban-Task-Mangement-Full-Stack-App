@@ -1,50 +1,117 @@
+/*
+  Based on TailwindCSS recommendations,
+  consider using classes instead of the `@apply` directive
+  @see https://tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction
+*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 html {
-  font-size: 62.5%;
+  @apply text-[62.5%];
 }
 body {
-  font-size: 1.6rem;
+  @apply text-[1.6rem];
 }
+
+@layer base {
+  :root {
+    --custom-bg-main: 248, 250, 252;
+    --custom-bg-secondary: 241, 245, 249;
+    --custom-text-1: #020617;
+    --custom-text-2: #1e293b;
+  }
+}
+html.dark {
+  --custom-bg-main: 35 35 47;
+  --custom-bg-secondary: 44 44 56;
+  --custom-text-1: #f1f5f9;
+  --custom-text-2: #cbd5e1;
+}
+
 .app-layout {
-  display: grid;
-  grid-template-columns: 25rem 1fr;
-  grid-template-rows: 8rem 1fr;
-  min-height: 100vh;
+  @apply grid grid-cols-[25rem_1fr] grid-rows-[9rem_1fr] min-h-screen;
 }
+
 .sidebar {
-  min-height: 100vh;
-}
-.app-layout > * {
-  border: 2px solid black;
+  @apply min-h-screen transition-all ease-linear;
 }
 .main {
-  grid-column-start: 2;
+  @apply col-start-2;
+}
+.header {
+  @apply col-start-2;
 }
 
 @media screen and (max-width: 530px) {
   .app-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: 6rem 1fr;
-    position: relative;
-  }
-  .sidebar {
-    transform: translateX(-100%);
-    display: none;
-  }
-  .app-layout.menu .sidebar {
-    position: absolute;
-    left: 0;
-    top: 0;
-    transform: translateX(0);
-    display: block;
-    z-index: 1;
-    width: 20%;
+    @apply grid-cols-[1fr] grid-rows-[8rem_1fr] relative;
   }
   .main,
   .header {
-    grid-column-start: 1;
+    @apply col-start-1;
   }
+  .sidebar {
+    @apply absolute;
+  }
+  .app-layout.menu .sidebar {
+    @apply absolute translate-x-0 block z-[1] w-1/5 left-0 top-0;
+  }
+}
+
+.main.hidesidebar,
+.header.hidesidebar {
+  grid-column: 1 / -1;
+}
+.sidebar.hidesidebar {
+  display: none;
+}
+
+/* checkbox styles */
+.switch {
+  display: inline-block;
+  height: 2rem;
+  position: relative;
+  width: 4.5rem;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: '';
+  height: 1.7rem;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 1.7rem;
+}
+
+input:checked + .slider {
+  @apply bg-primary;
+}
+
+input:checked + .slider:before {
+  transform: translateX(25px);
+}
+
+.slider.round {
+  border-radius: 10px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
