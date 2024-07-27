@@ -10,14 +10,17 @@ export const TASKS = [
       {
         subtaskname: 'kcuh bhi',
         isDone: false,
+        _id: 1,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: false,
+        _id: 2,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: false,
+        _id: 3,
       },
     ],
   },
@@ -31,10 +34,12 @@ export const TASKS = [
       {
         subtaskname: 'kcuh bhi',
         isDone: false,
+        _id: 4,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: false,
+        _id: 5,
       },
     ],
   },
@@ -49,14 +54,17 @@ export const TASKS = [
       {
         subtaskname: 'kcuh bhi',
         isDone: false,
+        _id: 6,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: true,
+        _id: 7,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: true,
+        _id: 8,
       },
     ],
   },
@@ -70,14 +78,17 @@ export const TASKS = [
       {
         subtaskname: 'kcuh bhi',
         isDone: false,
+        _id: 8,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: false,
+        _id: 9,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: true,
+        _id: 10,
       },
     ],
   },
@@ -91,14 +102,17 @@ export const TASKS = [
       {
         subtaskname: 'kcuh bhi',
         isDone: true,
+        _id: 11,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: true,
+        _id: 12,
       },
       {
         subtaskname: 'kcuh bhi',
         isDone: true,
+        _id: 13,
       },
     ],
   },

@@ -1,3 +1,5 @@
+import Task from './Task';
+
 function Column({ coulmn, tasks }) {
   return (
     <div>
@@ -12,22 +14,9 @@ function Column({ coulmn, tasks }) {
       </div>
 
       <ul className="mt-9 flex flex-col gap-8">
-        {tasks.map((task) => {
-          const completedSubtasks = task.subtasks.filter(
-            (el) => el.isDone
-          ).length;
-          return (
-            <li
-              className={`px-6 py-8 bg-custom-bg-secondary rounded-lg text-custom-text-1 cursor-default`}
-              key={task._id}
-            >
-              <h1>{task.title}</h1>
-              <p className="text-custom-text-2 text-2xl mt-2">
-                {completedSubtasks} of {task.subtasks.length} subtasks
-              </p>
-            </li>
-          );
-        })}
+        {tasks.map((task) => (
+          <Task task={task} key={task._id} />
+        ))}
       </ul>
     </div>
   );
