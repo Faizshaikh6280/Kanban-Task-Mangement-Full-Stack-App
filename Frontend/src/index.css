@@ -18,7 +18,7 @@ body {
     --custom-bg-main: 248, 250, 252;
     --custom-bg-secondary: 241, 245, 249;
     --custom-text-1: #020617;
-    --custom-text-2: #1e293b;
+    --custom-text-2: #334155;
   }
 }
 html.dark {
@@ -79,7 +79,7 @@ html.dark {
 }
 
 .slider {
-  background-color: #ccc;
+  background-color: rgb(100 95 198);
   bottom: 0;
   cursor: pointer;
   left: 0;
@@ -91,21 +91,21 @@ html.dark {
 
 .slider:before {
   background-color: #fff;
-  bottom: 4px;
+  bottom: 2px;
   content: '';
   height: 1.7rem;
-  left: 4px;
+  left: 56%;
   position: absolute;
   transition: 0.4s;
   width: 1.7rem;
 }
 
 input:checked + .slider {
-  @apply bg-primary;
+  @apply bg-slate-400;
 }
 
 input:checked + .slider:before {
-  transform: translateX(25px);
+  transform: translateX(-24px);
 }
 
 .slider.round {
@@ -114,4 +114,15 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-y: hidden; /* Disable vertical scrolling */
+}
+.coulmns {
+  display: flex;
+  gap: 2.2rem;
 }

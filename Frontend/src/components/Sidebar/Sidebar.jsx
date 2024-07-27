@@ -6,7 +6,7 @@ import { MdSunny } from 'react-icons/md';
 import { BsMoonStarsFill } from 'react-icons/bs';
 import { BsEyeSlash } from 'react-icons/bs';
 import { useThemeMode } from '../../contexts/DarkModeContext';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 function Sidebar() {
   const { toggleMode, isDarkMode } = useThemeMode();
