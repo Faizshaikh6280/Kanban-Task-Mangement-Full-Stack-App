@@ -38,9 +38,9 @@ function Window({ children, name }) {
   if (name !== openName) return null;
 
   return createPortal(
-    <div className="absolute inset-0 backdrop-blur-sm bg-custom-bg-main/30 flex flex-col items-center justify-center">
+    <div className="absolute inset-0 backdrop-blur-sm bg-custom-bg-main/30 flex flex-col items-center justify-center ">
       <div
-        className="text-custom-text-2 p-10 border border-custom-text-2 rounded-lg bg-custom-bg-secondary  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="text-custom-text-2 p-10 shadow-lg rounded-lg bg-custom-bg-secondary  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-y-auto max-h-[95vh]"
         ref={ref}
       >
         <button onClick={close} className="absolute top-10 right-[2rem]">

@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import AddNewTaskModal from '../Modals/AddNewTaskModal';
 function Header() {
   const ref = useRef();
   return (
@@ -11,9 +12,7 @@ function Header() {
         Platform Launch
       </h1>
       <div className="right flex gap-4 items-center">
-        <button className="add-task text-white px-8 py-4 rounded-full bg-primary shadow-sm">
-          +Add New Task
-        </button>
+        <AddNewTaskModal />
         <BsThreeDotsVertical
           className="text-3xl cursor-pointer"
           onClick={() => {

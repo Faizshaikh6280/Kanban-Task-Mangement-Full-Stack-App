@@ -145,3 +145,21 @@ export const BOARD = {
     // },
   ],
 };
+
+export const TASK_PLACEHOLDER = [
+  'e.g., Take a coffee break',
+  'e.g., Complete project report',
+  'e.g., Attend team meeting',
+  'e.g., Call the client',
+  'e.g., Schedule dentist appointment',
+  'e.g., Update project status',
+  'e.g., Submit timesheet',
+  'e.g., Prepare presentation slides',
+  'e.g., Review code changes',
+  'e.g., Plan weekend trip',
+  'e.g., Organize workspace',
+  'e.g., Send follow-up emails',
+  'e.g., Read a chapter of a book',
+  'e.g., Workout session',
+  'e.g., Grocery shopping',
+];

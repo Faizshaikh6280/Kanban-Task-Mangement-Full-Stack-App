@@ -1,14 +1,20 @@
 import { useState } from 'react';
+import SelectCategory from '../../ui/SelectCategory';
 
-function UpdateTaskWindow({ task }) {
-  const sortedTasks = task.subtasks.sort((a, b) => {
+const columnCategory = ['todo', 'doing', 'done'];
+const sortTasks = function (tasks) {
+  return tasks.sort((a, b) => {
     if (a.isDone === b.isDone) {
       return 0;
     }
     return a.isDone ? -1 : 1;
   });
-  const [subtasks, setSubtasks] = useState(sortedTasks);
-  const columnCategory = ['todo', 'doing', 'done'];
+};
+
+function UpdateTaskWindow({ task }) {
+  const [subtasks, setSubtasks] = useState(sortTasks(task.subtasks));
+  const [selectedCategory, setSelectedCategory] = useState(task.status);
+
   const completedSubtasks = subtasks.filter((sub) => sub.isDone).length;
 
   function handleCheckboxChange(index) {
@@ -58,6 +64,19 @@ function UpdateTaskWindow({ task }) {
           );
         })}
       </ul>
+      <div className="category">
+        <h2 className="text-custom-text-1 font-semibold mb-2 text-2xl">
+          Status
+        </h2>
+        <SelectCategory
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          columnCategory={columnCategory}
+        />
+      </div>
+      <button className="px-4 py-4 rounded-full text-slate-50 text-2xl cursor-pointer bg-primary mt-4">
+        Update Task
+      </button>
     </div>
   );
 }
