@@ -28,18 +28,33 @@ export const createBoard = async function (req, res, next) {
 export const getBoard = async function (req, res, next) {
   try {
     const board = await boardModel
-      .findOne({ name: req.params.name })
+      .findOne({ slug: req.params?.name?.toLowerCase().split(' ')[0] })
       .populate('coulmns');
+
     if (!board) throw new Error('Board does not exists');
+    console.log('called');
 
     res.status(200).json({
       status: 'success',
-      data: {
-        board,
-      },
+      board,
     });
   } catch (error) {
     res.send(error.message);
     console.log('Error in getBoard 💥', error);
+  }
+};
+
+export const getAllBoards = async function (req, res, next) {
+  try {
+    const boards = await boardModel.find().select('name slug');
+    res.status(200).json({
+      status: 'success',
+      data: {
+        boards,
+      },
+    });
+  } catch (error) {
+    res.send(error.message);
+    console.log('Error in getAllBoards 💥', error);
   }
 };

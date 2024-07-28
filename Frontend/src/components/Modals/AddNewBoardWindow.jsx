@@ -5,23 +5,12 @@ import { HiXMark } from 'react-icons/hi2';
 function AddNewBoardWindow() {
   const [columns, setCoulumns] = useState([{ value: '', color: '#645fc6' }]);
 
-  function handleInputChange(value, indx) {
+  function handleInputChange(e, indx) {
     setCoulumns((columns) => {
       const newColumns = [...columns];
       newColumns[indx] = {
         ...newColumns[indx],
-        value,
-      };
-      return newColumns;
-    });
-  }
-
-  function handleColorChange(color, indx) {
-    setCoulumns((columns) => {
-      const newColumns = [...columns];
-      newColumns[indx] = {
-        ...newColumns[indx],
-        color,
+        [e.target.name]: [e.target.value],
       };
       return newColumns;
     });
@@ -65,17 +54,19 @@ function AddNewBoardWindow() {
                     type="text"
                     placeholder={`e.g. On Hold`}
                     id="columns"
+                    name="value"
                     className="border h-[35px] border-custom-text-2 px-3 p-2 rounded-md w-1/2 bg-transparent placeholder:text-2xl placeholder:text-custom-text-2/5 tracking-wide  outline-none"
                     value={columns[indx].value}
-                    onChange={(e) => handleInputChange(e.target.value, indx)}
+                    onChange={(e) => handleInputChange(e, indx)}
                   />
                   <input
                     type="color"
                     placeholder={'e.g. hotpink'}
                     id="colors"
+                    name="color"
                     className="border h-[35px] border-custom-text-2 px-3 p-2  rounded-md w-1/2 bg-transparent placeholder:text-2xl placeholder:text-custom-text-2/5 tracking-wide  outline-none"
                     value={columns[indx].color}
-                    onChange={(e) => handleColorChange(e.target.value, indx)}
+                    onChange={(e) => handleInputChange(e, indx)}
                   />
                 </div>
                 <HiXMark
@@ -92,6 +83,7 @@ function AddNewBoardWindow() {
             );
           })}
           <button
+            type="button"
             onClick={() =>
               setCoulumns((prev) => [...prev, { value: '', color: '#645fc6' }])
             }

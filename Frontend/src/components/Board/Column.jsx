@@ -13,11 +13,17 @@ function Column({ coulmn, tasks }) {
         </span>
       </div>
 
-      <ul className="mt-9 flex flex-col gap-8">
-        {tasks.map((task) => (
-          <Task task={task} key={task._id} />
-        ))}
-      </ul>
+      {tasks.length > 0 ? (
+        <ul className="mt-9 flex flex-col gap-8">
+          {tasks.map((task) => (
+            <Task task={task} key={task._id} />
+          ))}
+        </ul>
+      ) : (
+        <div className="h-full flex items-center">
+          <span> Add new task to your list😉</span>
+        </div>
+      )}
     </div>
   );
 }

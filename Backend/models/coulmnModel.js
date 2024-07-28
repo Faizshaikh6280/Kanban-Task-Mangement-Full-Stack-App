@@ -8,5 +8,10 @@ const coulmnSchema = new mongoose.Schema({
   color: String,
 });
 
+coulmnSchema.pre('save', function (next) {
+  this.name = this.name.toLowerCase();
+  next();
+});
+
 const coulmnModel = mongoose.model('Coulmn', coulmnSchema);
 export default coulmnModel;

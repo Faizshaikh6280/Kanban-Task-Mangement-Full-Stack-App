@@ -51,7 +51,7 @@ html.dark {
     @apply col-start-1;
   }
   .sidebar {
-    @apply absolute w-[20rem];
+    @apply absolute;
   }
   .app-layout.menu .sidebar {
     @apply absolute translate-x-0 block z-[1] w-1/5 left-0 top-0;

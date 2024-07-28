@@ -35,48 +35,50 @@ function UpdateTaskWindow({ task }) {
       <p className="description text-xl text-custom-text-2 leading-7">
         {task.description}
       </p>
-      <ul>
-        <p className="text-custom-text-1 font-semibold text-2xl tracking-wide mb-4">
-          Subtasks ({completedSubtasks} of {task.subtasks.length})
-        </p>
-        {subtasks.map((subtask, index) => {
-          return (
-            <li
-              className="flex gap-4 items-center p-3 rounded-md bg-custom-bg-main mb-4"
-              key={index}
-            >
-              <input
-                type="checkbox"
-                id={subtask._id}
-                checked={subtask.isDone}
-                onChange={() => handleCheckboxChange(index)}
-                className="accent-primary"
-              />
-              <label
-                htmlFor={subtask._id}
-                className={`${
-                  subtask.isDone ? 'line-through' : ''
-                } text-custom-text-2 text-[1.5rem]`}
+      <form action="">
+        <ul>
+          <p className="text-custom-text-1 font-semibold text-2xl tracking-wide mb-4">
+            Subtasks ({completedSubtasks} of {task.subtasks.length})
+          </p>
+          {subtasks.map((subtask, index) => {
+            return (
+              <li
+                className="flex gap-4 items-center p-3 rounded-md bg-custom-bg-main mb-4"
+                key={index}
               >
-                {subtask.subtaskname}
-              </label>
-            </li>
-          );
-        })}
-      </ul>
-      <div className="category">
-        <h2 className="text-custom-text-1 font-semibold mb-2 text-2xl">
-          Status
-        </h2>
-        <SelectCategory
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          columnCategory={columnCategory}
-        />
-      </div>
-      <button className="px-4 py-4 rounded-full text-slate-50 text-2xl cursor-pointer bg-primary mt-4">
-        Update Task
-      </button>
+                <input
+                  type="checkbox"
+                  id={subtask._id}
+                  checked={subtask.isDone}
+                  onChange={() => handleCheckboxChange(index)}
+                  className="accent-primary"
+                />
+                <label
+                  htmlFor={subtask._id}
+                  className={`${
+                    subtask.isDone ? 'line-through' : ''
+                  } text-custom-text-2 text-[1.5rem]`}
+                >
+                  {subtask.subtaskname}
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="category">
+          <h2 className="text-custom-text-1 font-semibold mb-2 text-2xl">
+            Status
+          </h2>
+          <SelectCategory
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            columnCategory={columnCategory}
+          />
+        </div>
+        <button className="px-4 w-full py-4 rounded-full text-slate-50 text-2xl cursor-pointer bg-primary mt-4">
+          Update Task
+        </button>
+      </form>
     </div>
   );
 }

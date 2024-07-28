@@ -94,6 +94,7 @@ function AddNewTaskWindow() {
             );
           })}
           <button
+            type="button"
             onClick={() => setSubtasks((prev) => [...prev, { value: '' }])}
             className="px-4 py-4 rounded-full dark:text-primary text-2xl cursor-pointer dark:bg-custom-text-1 mt-4 font-semibold bg-custom-text-2 text-slate-50"
           >

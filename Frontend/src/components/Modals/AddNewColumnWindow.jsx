@@ -3,20 +3,11 @@ import React, { useState } from 'react';
 function AddNewColumnWindow() {
   const [column, setCoulumn] = useState({ value: '', color: '#645fc6' });
 
-  function handleInputChange(value) {
+  function handleInputChange(e) {
     setCoulumn((prev) => {
       return {
         ...prev,
-        value,
-      };
-    });
-  }
-
-  function handleColorChange(color) {
-    setCoulumn((prev) => {
-      return {
-        ...prev,
-        color,
+        [e.target.name]: [e.target.value],
       };
     });
   }
@@ -39,9 +30,10 @@ function AddNewColumnWindow() {
             type="text"
             placeholder={`e.g. On Hold`}
             id="columnname"
+            name="value"
             className="border h-[35px] border-custom-text-2 px-3 p-2 rounded-md w-full bg-transparent placeholder:text-2xl placeholder:text-custom-text-2/5 tracking-wide  outline-none"
             value={column.value}
-            onChange={(e) => handleInputChange(e.target.value)}
+            onChange={(e) => handleInputChange(e)}
           />
         </div>
 
@@ -57,9 +49,10 @@ function AddNewColumnWindow() {
               type="color"
               placeholder={'e.g. hotpink'}
               id="colors"
+              name="color"
               className="border h-[35px] border-custom-text-2 px-3 p-2  rounded-md w-full bg-transparent placeholder:text-2xl placeholder:text-custom-text-2/5 tracking-wide  outline-none"
               value={column.color}
-              onChange={(e) => handleColorChange(e.target.value)}
+              onChange={(e) => handleInputChange(e)}
             />
           </div>
         </div>

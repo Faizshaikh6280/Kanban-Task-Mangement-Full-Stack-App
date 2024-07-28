@@ -1,12 +1,17 @@
 import express from 'express';
-import { createBoard, getBoard } from '../controllers/boardController.js';
+import {
+  createBoard,
+  getAllBoards,
+  getBoard,
+} from '../controllers/boardController.js';
 
 const router = express.Router();
 
 // get board
+router.get('/', getAllBoards);
 router.get('/:name', getBoard);
-router.post('/', createBoard);
 
 // create new board
+router.post('/', createBoard);
 
 export default router;

@@ -5,12 +5,21 @@ import boardRouter from './routes/boardRoutes.js';
 import taskRouter from './routes/tasksRoutes.js';
 import columnRouter from './routes/coulmnRoutes.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+const corsOptions = {
+  origin: 'http://localhost:5173', // Your React app's URL
+  optionsSuccessStatus: 200, // For legacy browser support
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
