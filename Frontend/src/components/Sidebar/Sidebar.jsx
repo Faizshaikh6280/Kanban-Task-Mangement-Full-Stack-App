@@ -7,6 +7,7 @@ import { BsMoonStarsFill } from 'react-icons/bs';
 import { BsEyeSlash } from 'react-icons/bs';
 import { useThemeMode } from '../../contexts/DarkModeContext';
 import { useRef } from 'react';
+import AddNewBoardModal from '../Modals/AddNewBoardModal';
 
 function Sidebar() {
   const { toggleMode, isDarkMode } = useThemeMode();
@@ -35,9 +36,8 @@ function Sidebar() {
         <Link className="py-4 w-full rounded-tr-full rounded-br-full pl-8 flex gap-4 items-center cursor-pointer ">
           <BsGrid1X2 className="text-[1.7rem]" /> <span>Roadmap</span>
         </Link>
-        <button className="py-4 w-full rounded-tr-full rounded-br-full pl-8 flex gap-4 items-center cursor-pointer text-primary">
-          <BsGrid1X2 className="text-[1.7rem]" /> <span>+Create New Board</span>
-        </button>
+
+        <AddNewBoardModal />
 
         <div className="bottom px-9 absolute bottom-14 w-full">
           <div className="bg-custom-bg-main px-4 py-5 rounded-md flex gap-6 justify-center items-center">

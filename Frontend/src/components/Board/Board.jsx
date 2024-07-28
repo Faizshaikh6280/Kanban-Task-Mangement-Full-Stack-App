@@ -1,5 +1,6 @@
 import { BOARD as BOARD_DATA, TASKS } from '../../dev-data/index.js';
 import { groupTasksByStatus } from '../../utils/index.js';
+import AddNewCoulmnModal from '../Modals/AddNewCoulmnModal.jsx';
 import Column from './Column';
 
 function Board() {
@@ -13,9 +14,8 @@ function Board() {
           tasks={groupedTasks[coulmn.name]}
         />
       ))}
-      <div className="w-[20rem] bg-custom-bg-secondary rounded-lg cursor-pointer flex items-center justify-center mt-16">
-        <p className="text-4xl font-semibold"> +New Coulmn</p>
-      </div>
+
+      <AddNewCoulmnModal />
     </div>
   );
 }

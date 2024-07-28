@@ -112,7 +112,7 @@ function AddNewTaskWindow() {
           />
         </div>
         <button className="px-4 py-4 rounded-full text-slate-50 text-2xl cursor-pointer bg-primary mt-4 font-bold">
-          Add New Task
+          Create New Task
         </button>
       </form>
     </div>

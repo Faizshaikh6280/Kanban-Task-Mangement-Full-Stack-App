@@ -163,3 +163,17 @@ export const TASK_PLACEHOLDER = [
   'e.g., Workout session',
   'e.g., Grocery shopping',
 ];
+
+export const COLUMN_NAMES = [
+  'To Do',
+  'In Progress',
+  'Completed',
+  'Backlog',
+  'Review',
+  'On Hold',
+  'Blocked',
+  'Ready for Testing',
+  'In Testing',
+  'Approved',
+  'Released',
+];
