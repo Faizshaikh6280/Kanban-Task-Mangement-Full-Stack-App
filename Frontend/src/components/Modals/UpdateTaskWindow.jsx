@@ -12,7 +12,7 @@ const sortTasks = function (tasks) {
 };
 
 function UpdateTaskWindow({ task }) {
-  const [subtasks, setSubtasks] = useState(sortTasks(task.subtasks));
+  const [subtasks, setSubtasks] = useState(sortTasks(task.subTasks));
   const [selectedCategory, setSelectedCategory] = useState(task.status);
 
   const completedSubtasks = subtasks.filter((sub) => sub.isDone).length;
@@ -38,7 +38,7 @@ function UpdateTaskWindow({ task }) {
       <form action="">
         <ul>
           <p className="text-custom-text-1 font-semibold text-2xl tracking-wide mb-4">
-            Subtasks ({completedSubtasks} of {task.subtasks.length})
+            Subtasks ({completedSubtasks} of {task.subTasks.length})
           </p>
           {subtasks.map((subtask, index) => {
             return (

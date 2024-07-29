@@ -4,13 +4,16 @@ import { useBoard } from '../../hooks/api/useBoard.js';
 import { groupTasksByStatus } from '../../utils/index.js';
 import AddNewCoulmnModal from '../Modals/AddNewCoulmnModal.jsx';
 import Column from './Column';
+import { useTasks } from '../../hooks/api/useTasks.js';
 
 function Board() {
   const { boardname } = useParams();
-  const groupedTasks = groupTasksByStatus(TASKS);
-  const { isLoading, board, error } = useBoard(boardname);
+  const { isLoading, board } = useBoard(boardname);
+  const { tasks, isLoading: isLoadingTasks } = useTasks('1');
 
-  if (isLoading) return <p className="text-center w-full">Loading...</p>;
+  const groupedTasks = groupTasksByStatus(tasks);
+  if (isLoading || isLoadingTasks)
+    return <p className="text-center w-full">Loading...</p>;
 
   return (
     <div className="p-9 h-full coulmns">

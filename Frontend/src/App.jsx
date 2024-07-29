@@ -25,7 +25,7 @@ function App() {
           </Routes>
         </BrowserRouter>
         <Toaster
-          className="bg-custom-bg-main text-custom-text-1 text-lg max-w-[500px] px-[24px] py-[1rem]"
+          className="bg-custom-bg-secondary border border-custom-text-2/30 text-custom-text-1 text-lg max-w-[500px] px-[24px] py-[1rem]"
           position="top-center"
           reverseOrder={false}
           gutter={12}
@@ -41,8 +41,6 @@ function App() {
               padding: '16px 24px',
               fontSize: '16px',
               maxWidth: '500px',
-              backgroundColor: 'var(--custom-bg-1)',
-              color: 'var(--custom-text-1)',
             },
           }}
         />

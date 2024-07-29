@@ -1,15 +1,20 @@
 import { useRef } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import AddNewTaskModal from '../Modals/AddNewTaskModal';
+import { useParams } from 'react-router-dom';
+import { useBoard } from '../../hooks/api/useBoard';
 function Header() {
+  const { boardname } = useParams();
+  const { isLoading, board } = useBoard(boardname);
   const ref = useRef();
+
   return (
     <div
       className="header bg-custom-bg-secondary text-custom-text-2  border-b-slate-600 border-b-[1px] pt-9 px-8 flex justify-between items-start"
       ref={ref}
     >
       <h1 className="boardname text-4xl text-custom-text-1 font-semibold">
-        Platform Launch
+        {isLoading ? 'Loading...' : board.name}
       </h1>
       <div className="right flex gap-4 items-center">
         <AddNewTaskModal />

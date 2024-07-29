@@ -85,7 +85,6 @@ function AddNewTaskWindow() {
                     setSubtasks((subtasks) => {
                       const newSubtasks =
                         subtasks.filter((_, Elindx) => Elindx !== indx) || [];
-                      console.log(indx, newSubtasks);
                       return newSubtasks;
                     });
                   }}

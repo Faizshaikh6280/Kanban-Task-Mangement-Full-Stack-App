@@ -32,29 +32,32 @@ export const getBoard = async function (req, res, next) {
       .populate('coulmns');
 
     if (!board) throw new Error('Board does not exists');
-    console.log('called');
 
     res.status(200).json({
       status: 'success',
       board,
     });
   } catch (error) {
-    res.send(error.message);
+    res.status(404).json({
+      error: error.message,
+    });
+    // res.send(error.message);
     console.log('Error in getBoard 💥', error);
   }
 };
 
 export const getAllBoards = async function (req, res, next) {
   try {
-    const boards = await boardModel.find().select('name slug');
+    const { userId } = req.query;
+    const boards = await boardModel.find({ userId }).select('name slug');
     res.status(200).json({
       status: 'success',
-      data: {
-        boards,
-      },
+      boards,
     });
   } catch (error) {
-    res.send(error.message);
+    res.status(400).json({
+      error: error.message,
+    });
     console.log('Error in getAllBoards 💥', error);
   }
 };

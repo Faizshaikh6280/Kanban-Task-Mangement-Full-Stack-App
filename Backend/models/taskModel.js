@@ -5,7 +5,10 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Title is required'],
   },
-  userId: String,
+  userId: {
+    type: String,
+    select: false,
+  },
   description: String,
   subTasks: [
     {
@@ -13,6 +16,8 @@ const taskSchema = new mongoose.Schema({
       ref: 'Subtask',
     },
   ],
+
+  boardSlug: String,
   status: String,
 });
 

@@ -33,13 +33,34 @@ export const getTask = async function (req, res, next) {
 
     res.status(200).json({
       status: 'success',
-      data: {
-        task,
-      },
+      task,
     });
   } catch (error) {
-    res.send(error.message);
+    res.status(404).json({
+      error: error.message,
+    });
     console.log('Error in getTask 💥', error);
+  }
+};
+
+export const getAllTasks = async function (req, res, next) {
+  try {
+    const { userId, boardSlug } = req.query;
+    // NOTE💡: find user if it is exists or not.
+    // if user does not exists throw error
+    const tasks = await taskModel
+      .find({ userId, boardSlug })
+      .populate('subTasks');
+
+    res.status(200).json({
+      status: 'success',
+      tasks,
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+    console.log('Error in getAllTasks 💥', error);
   }
 };
 
