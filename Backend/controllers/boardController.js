@@ -1,10 +1,13 @@
+import slugify from 'slugify';
 import boardModel from '../models/boardModel.js';
 
 export const createBoard = async function (req, res, next) {
   try {
     const { name, userId } = req.body;
+    const boardSlug = slugify(name, { lower: true });
 
-    const board = await boardModel.findOne({ name, userId });
+    const board = await boardModel.findOne({ slug: boardSlug, userId });
+
     if (board) {
       throw new Error('Board name already exists');
     }
@@ -15,12 +18,12 @@ export const createBoard = async function (req, res, next) {
     });
     res.status(200).json({
       status: 'success',
-      data: {
-        newBoard,
-      },
+      newBoard,
     });
   } catch (error) {
-    res.send(error.message);
+    res.status(404).json({
+      error: error.message,
+    });
     console.log('Error in createBoard 💥', error);
   }
 };

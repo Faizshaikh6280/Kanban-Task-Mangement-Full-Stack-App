@@ -1,18 +1,41 @@
 import React, { useState } from 'react';
-import { COLUMN_NAMES } from '../../dev-data';
 import { HiXMark } from 'react-icons/hi2';
+import { useCreateBoard } from '../../hooks/api/useCreateBoard';
+const userId = '1';
 
 function AddNewBoardWindow() {
-  const [columns, setCoulumns] = useState([{ value: '', color: '#645fc6' }]);
-
+  const [columns, setCoulumns] = useState([{ name: '', color: '#645fc6' }]);
+  const [boardname, setBoardname] = useState('');
+  const { createBoardMutation } = useCreateBoard();
   function handleInputChange(e, indx) {
     setCoulumns((columns) => {
       const newColumns = [...columns];
       newColumns[indx] = {
         ...newColumns[indx],
-        [e.target.name]: [e.target.value],
+        [e.target.name]: e.target.value,
       };
       return newColumns;
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    let columnArr = [];
+
+    if (columns.length > 0) {
+      columnArr = columns.filter((el) => el.name);
+    }
+
+    const data = {
+      name: boardname,
+      columnsData: columnArr,
+      userId,
+    };
+    console.log(data);
+    createBoardMutation(data, {
+      onSuccess: () => {
+        document.documentElement.click();
+      },
     });
   }
 
@@ -22,7 +45,7 @@ function AddNewBoardWindow() {
         Add New Board
       </h1>
 
-      <form action="" className="flex flex-col gap-7">
+      <form action="" onSubmit={handleSubmit} className="flex flex-col gap-7">
         <div className="tite-input flex flex-col gap-3 ">
           <label
             htmlFor="title"
@@ -32,6 +55,8 @@ function AddNewBoardWindow() {
           </label>
           <input
             required
+            value={boardname}
+            onChange={(e) => setBoardname(e.target.value)}
             type="text"
             placeholder="e.g Full Stack Learning"
             id="title"
@@ -54,9 +79,9 @@ function AddNewBoardWindow() {
                     type="text"
                     placeholder={`e.g. On Hold`}
                     id="columns"
-                    name="value"
+                    name="name"
                     className="border h-[35px] border-custom-text-2 px-3 p-2 rounded-md w-1/2 bg-transparent placeholder:text-2xl placeholder:text-custom-text-2/5 tracking-wide  outline-none"
-                    value={columns[indx].value}
+                    value={columns[indx].name}
                     onChange={(e) => handleInputChange(e, indx)}
                   />
                   <input
@@ -85,7 +110,7 @@ function AddNewBoardWindow() {
           <button
             type="button"
             onClick={() =>
-              setCoulumns((prev) => [...prev, { value: '', color: '#645fc6' }])
+              setCoulumns((prev) => [...prev, { name: '', color: '#645fc6' }])
             }
             className="px-4 py-4 rounded-full dark:text-primary text-2xl cursor-pointer dark:bg-custom-text-1 mt-4 font-semibold bg-custom-text-2 text-slate-50"
           >

@@ -118,9 +118,10 @@ input:checked + .slider:before {
 
 .main {
   width: 100%;
+  height: calc(100vh - 9rem);
   display: flex;
   overflow-x: auto; /* Enable horizontal scrolling */
-  overflow-y: hidden; /* Disable vertical scrolling */
+  overflow-y: auto; /* Disable vertical scrolling */
 }
 .coulmns {
   display: flex;

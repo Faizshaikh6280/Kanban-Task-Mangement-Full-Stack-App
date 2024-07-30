@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { HiXMark } from 'react-icons/hi2';
-import { TASK_PLACEHOLDER } from '../../dev-data';
 import SelectCategory from '../../ui/SelectCategory';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import { useCreateTask } from '../../hooks/api/useCreateTask';
 
 function AddNewTaskWindow() {
-  const [subtasks, setSubtasks] = useState([{ value: '' }]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const { boardname } = useParams();
+  const { data: board } = useQuery({ queryKey: [`${boardname}`] });
+  const columnCategory = board.coulmns.map((el) => el.name);
 
-  const columnCategory = ['todo', 'doing', 'done'];
+  const [subtasks, setSubtasks] = useState([{ value: '' }]);
+  const [formData, setFormData] = useState({ title: '', description: '' });
+  const [selectedCategory, setSelectedCategory] = useState(columnCategory[0]);
+  const { createTaskMutation, isCreating } = useCreateTask();
 
   function handleInputChange(value, indx) {
     setSubtasks((subtasks) => {
@@ -20,13 +26,42 @@ function AddNewTaskWindow() {
     });
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    let subtasksArr = [];
+
+    if (subtasks.length > 0) {
+      subtasksArr = subtasks
+        .filter((el) => el.value)
+        .map((el) => {
+          return {
+            name: el.value,
+          };
+        });
+    }
+
+    const data = {
+      title: formData.title,
+      description: formData.description,
+      boardSlug: boardname,
+      userId: '1',
+      status: selectedCategory.toLowerCase(),
+      subtasks: subtasksArr,
+    };
+    createTaskMutation(data, {
+      onSuccess: () => {
+        document.documentElement.click();
+      },
+    });
+  }
   return (
     <div className="flex flex-col gap-7 w-[35rem] md:w-[50rem]">
       <h1 className="text-custom-text-1 text-3xl font-semibold">
         Add New Task
       </h1>
 
-      <form action="" className="flex flex-col gap-7">
+      <form action="" onSubmit={handleSubmit} className="flex flex-col gap-7">
         <div className="tite-input flex flex-col gap-3 ">
           <label
             htmlFor="title"
@@ -36,7 +71,15 @@ function AddNewTaskWindow() {
           </label>
           <input
             required
+            maxLength={50}
             type="text"
+            value={formData.title}
+            onChange={(e) =>
+              setFormData((prev) => {
+                return { ...prev, [e.target.name]: e.target.value };
+              })
+            }
+            name="title"
             placeholder="e.g Take coffe break"
             id="title"
             className="border border-custom-text-2 p-3 rounded-md w-full bg-transparent placeholder:text-2xl placeholder:text-custom-text-2/5 tracking-wide  outline-none"
@@ -51,6 +94,13 @@ function AddNewTaskWindow() {
             Description
           </label>
           <textarea
+            name="description"
+            value={formData.description}
+            onChange={(e) =>
+              setFormData((prev) => {
+                return { ...prev, [e.target.name]: e.target.value };
+              })
+            }
             rows={7}
             placeholder="e.g It's always good to take a break, A bit of break can charge a batter a lot!"
             id="title"
@@ -66,14 +116,11 @@ function AddNewTaskWindow() {
             Subtasks
           </label>
           {subtasks.map((_, indx) => {
-            const randomIndex = Math.floor(
-              Math.random() * TASK_PLACEHOLDER.length
-            );
             return (
               <div className="flex justify-between items-center" key={indx}>
                 <input
                   type="text"
-                  placeholder={`${TASK_PLACEHOLDER[randomIndex]}`}
+                  placeholder={`e.g. Learn to javascript`}
                   id="subtasks"
                   className="border border-custom-text-2 px-3 p-2 rounded-md w-[92%] bg-transparent placeholder:text-2xl placeholder:text-custom-text-2/5 tracking-wide  outline-none"
                   value={subtasks[indx].value}
@@ -109,10 +156,14 @@ function AddNewTaskWindow() {
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
             columnCategory={columnCategory}
+            setFormData={setFormData}
           />
         </div>
-        <button className="px-4 py-4 rounded-full text-slate-50 text-2xl cursor-pointer bg-primary mt-4 font-bold">
-          Create New Task
+        <button
+          disabled={isCreating}
+          className="px-4 py-4 rounded-full text-slate-50 text-2xl cursor-pointer bg-primary mt-4 font-bold"
+        >
+          {isCreating ? 'Creating...' : 'Create New Task'}
         </button>
       </form>
     </div>

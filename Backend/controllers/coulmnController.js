@@ -4,7 +4,7 @@ import coulmnModel from '../models/coulmnModel.js';
 export const createColumn = async function (req, res, next) {
   try {
     const { name, color, boardId } = req.body;
-    const board = await boardModel.findById(boardId).populate('coulmns');
+    const board = await boardModel.findById(boardId);
 
     if (!board) {
       throw new Error('Board does not exists');
@@ -33,7 +33,51 @@ export const createColumn = async function (req, res, next) {
       },
     });
   } catch (error) {
-    res.send(error.message);
+    res.status(400).json({
+      error: error.message,
+    });
+    console.log('Error in createCoulmn 💥', error);
+  }
+};
+
+export const createManyColumns = async function (req, res, next) {
+  try {
+    const { columns, boardId } = req.body;
+    // const { name, color, boardId } = req.body;
+    const board = await boardModel.findById(boardId);
+
+    if (!board) {
+      throw new Error('Board does not exists');
+    }
+
+    let columnsPromises = [];
+
+    columns.forEach((el) => {
+      columnsPromises.push(
+        coulmnModel.create({
+          name: el.name,
+          boardId: el.boardId,
+          color: el.color,
+        })
+      );
+    });
+
+    const columnsResults = await Promise.all(columnsPromises);
+
+    columnsResults.forEach((column) => {
+      board.coulmns.push(column._id);
+    });
+
+    await board.save();
+
+    res.status(200).json({
+      status: 'success',
+      board,
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
     console.log('Error in createCoulmn 💥', error);
   }
 };

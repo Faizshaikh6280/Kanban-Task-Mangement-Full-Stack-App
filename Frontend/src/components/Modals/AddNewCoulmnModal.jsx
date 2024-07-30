@@ -8,7 +8,7 @@ function AddNewCoulmnModal() {
       <Modal>
         <Modal.Open opens="add-new-column">
           <div className="w-[20rem] bg-custom-bg-secondary rounded-lg cursor-pointer flex items-center justify-center mt-16 h-[95%]">
-            <p className="text-4xl font-semibold"> +New Coulmn</p>
+            <p className="text-4xl font-semibold"> +New Column</p>
           </div>
         </Modal.Open>
         <Modal.Window name={'add-new-column'}>

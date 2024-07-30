@@ -1,10 +1,10 @@
+import { createManyColumns } from './apiColumn.js';
 import api from './axiosConfig.js';
 import { toast } from 'react-hot-toast';
 
 export const getBoard = async (slug) => {
   try {
     const data = await api.get(`/api/boards/${slug}`);
-    console.log(data);
     return data.data.board;
   } catch (error) {
     console.log(error);
@@ -12,12 +12,20 @@ export const getBoard = async (slug) => {
   }
 };
 
-export const createBoard = async (name, columnsData) => {
+export const createBoard = async ({ name, userId, columnsData }) => {
   try {
-    const data = await axios.post(`/api/boards/`, { name });
-    return data;
+    const data = await api.post(`/api/boards/`, { name, userId });
+
+    // if there is no error in creating board and there is column data then create columsn for board as well.
+    const board = data.data?.newBoard;
+    if (board?._id && columnsData.length > 0) {
+      await createManyColumns({ columns: columnsData, boardId: board._id });
+    }
+
+    return board;
   } catch (error) {
-    return error;
+    console.log(error);
+    toast.error(error.response.data.error);
   }
 };
 
