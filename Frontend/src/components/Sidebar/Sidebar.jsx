@@ -21,7 +21,7 @@ function Sidebar() {
 
   return (
     <div
-      className="sidebar  bg-custom-bg-secondary text-custom-text-2 border-r-slate-600 border-r-[1px] pt-9 pr-8 relative"
+      className="sidebar py-8 flex flex-col bg-custom-bg-secondary text-custom-text-2 border-r-slate-600 border-r-[1px] pt-9 pr-8 relative"
       ref={ref}
     >
       <div className="pl-8">
@@ -32,7 +32,7 @@ function Sidebar() {
           <div className="mt-16 tracking-[3px] uppercase text-xl pl-8">
             All boards({boards.length})
           </div>
-          <ul className="boards-list mt-6 flex flex-col gap-6">
+          <ul className="boards-list mt-6 flex flex-col gap-6 overflow-y-auto py-4 scroll-smooth">
             {boards.map((board) => {
               return (
                 <Link
@@ -55,7 +55,7 @@ function Sidebar() {
 
           <AddNewBoardModal />
 
-          <div className="bottom px-9 absolute bottom-14 w-full">
+          <div className="bottom px-9 mt-auto bottom-14 w-full">
             <div className="bg-custom-bg-main px-4 py-5 rounded-md flex gap-6 justify-center items-center">
               <MdSunny
                 className={`cursor-pointer text-3xl ${

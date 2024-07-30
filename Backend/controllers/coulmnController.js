@@ -3,15 +3,14 @@ import coulmnModel from '../models/coulmnModel.js';
 
 export const createColumn = async function (req, res, next) {
   try {
-    const { name, color, boardId } = req.body;
-    const board = await boardModel.findById(boardId);
+    const { name, color, boardSlug } = req.body;
+    const board = await boardModel.findOne({ slug: boardSlug });
 
     if (!board) {
       throw new Error('Board does not exists');
     }
 
     const columnNames = board.coulmns.map((el) => el.name);
-    console.log(columnNames);
 
     if (columnNames.includes(name)) {
       throw new Error('Coulmn name already exists with this board.');
@@ -28,9 +27,7 @@ export const createColumn = async function (req, res, next) {
 
     res.status(200).json({
       status: 'success',
-      data: {
-        newColumn,
-      },
+      newColumn,
     });
   } catch (error) {
     res.status(400).json({
