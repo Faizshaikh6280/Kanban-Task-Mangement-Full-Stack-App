@@ -1,21 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { createColumn } from '../../services/apiColumn';
 import { useParams } from 'react-router-dom';
+import { updateTask } from '../../services/apiTasks';
 
 const userId = '1';
 
-export function useCreateColumn() {
+export function useUpdateTask() {
   const { boardname: boardSlug } = useParams();
   const queryClient = useQueryClient();
 
-  const { isPending: isCreating, mutate: createColumnMutation } = useMutation({
-    mutationFn: async (column) => createColumn({ column, boardSlug }),
+  const { isPending: isUpdating, mutate: updateTaskMutation } = useMutation({
+    mutationFn: async ({ taskId, subtasks, status }) =>
+      updateTask({ taskId, subtasks, status }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [`${boardSlug}`],
+        queryKey: [`tasks-${userId}-${boardSlug}`],
       });
-      toast.success('Column has been created 🎉');
+      toast.success('Task has been updated 🎉');
     },
     onError: (error) => {
       console.log(error);
@@ -23,5 +24,5 @@ export function useCreateColumn() {
     },
   });
 
-  return { isCreating, createColumnMutation };
+  return { isUpdating, updateTaskMutation };
 }

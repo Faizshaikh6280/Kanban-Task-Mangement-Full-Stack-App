@@ -18,19 +18,19 @@ function Header() {
         {currentBoard ? (
           <>
             <AddNewTaskModal />
-            <BsThreeDotsVertical
-              className="text-3xl cursor-pointer"
-              onClick={() => {
-                const main = document.querySelector('.main');
-                const sidebar = document.querySelector('.sidebar');
-
-                ref.current.classList.toggle('hidesidebar');
-                sidebar.classList.toggle('hidesidebar');
-                main.classList.toggle('hidesidebar');
-              }}
-            />
           </>
         ) : null}
+        <BsThreeDotsVertical
+          className="text-3xl cursor-pointer"
+          onClick={() => {
+            const main = document.querySelector('.main');
+            const sidebar = document.querySelector('.sidebar');
+
+            ref.current.classList.toggle('hidesidebar');
+            sidebar.classList.toggle('hidesidebar');
+            main.classList.toggle('hidesidebar');
+          }}
+        />
       </div>
     </div>
   );

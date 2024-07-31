@@ -154,7 +154,7 @@ function AddNewTaskWindow() {
           </h2>
           <SelectCategory
             selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
+            onChangeCategory={(e) => setSelectedCategory(e.target.value)}
             columnCategory={columnCategory}
             setFormData={setFormData}
           />

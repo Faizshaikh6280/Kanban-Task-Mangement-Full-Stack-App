@@ -23,6 +23,7 @@ function Board() {
     },
     [board]
   );
+
   if (isLoading || isLoadingTasks)
     return <p className="text-center w-full">Loading...</p>;
 

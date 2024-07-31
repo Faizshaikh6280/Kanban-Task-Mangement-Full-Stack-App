@@ -6,7 +6,7 @@ const userId = '1';
 function AddNewBoardWindow() {
   const [columns, setCoulumns] = useState([{ name: '', color: '#645fc6' }]);
   const [boardname, setBoardname] = useState('');
-  const { createBoardMutation } = useCreateBoard();
+  const { isCreating, createBoardMutation } = useCreateBoard();
   function handleInputChange(e, indx) {
     setCoulumns((columns) => {
       const newColumns = [...columns];
@@ -118,8 +118,11 @@ function AddNewBoardWindow() {
           </button>
         </div>
 
-        <button className="px-4 py-4 rounded-full text-slate-50 text-2xl cursor-pointer bg-primary mt-4 font-bold">
-          Create New Board
+        <button
+          disabled={isCreating}
+          className="px-4 py-4 rounded-full text-slate-50 text-2xl cursor-pointer bg-primary mt-4 font-bold"
+        >
+          {isCreating ? 'Creating...' : ' Create New Board'}
         </button>
       </form>
     </div>

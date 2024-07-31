@@ -5,7 +5,7 @@ import {
   createTask,
   getAllTasks,
   getTask,
-  updateSubtask,
+  updateTask,
 } from '../controllers/taskController.js';
 
 const router = express.Router();
@@ -16,6 +16,6 @@ router.get('/:taskId', getTask);
 router.post('/', createTask);
 router.post('/subtask', createSubtask);
 router.post('/subtask-many', createManySubtasks);
-router.patch('/subtask/:subtaskId', updateSubtask);
+router.patch('/:taskId', updateTask);
 
 export default router;

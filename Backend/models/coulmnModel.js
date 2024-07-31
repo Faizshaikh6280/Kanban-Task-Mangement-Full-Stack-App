@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const coulmnSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Coulmn name should be unqiue'],
+    required: [true, 'Coulmn name is mandatory'],
   },
   color: String,
 });

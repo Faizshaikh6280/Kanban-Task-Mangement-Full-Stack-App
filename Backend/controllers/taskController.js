@@ -143,30 +143,43 @@ export const createManySubtasks = async function (req, res, next) {
   }
 };
 
-export const updateSubtask = async function (req, res, next) {
-  const { isDone } = req.body;
+export const updateTask = async function (req, res, next) {
+  const { taskId } = req.params;
+  const { status, subtasks } = req.body;
 
-  const newsubTask = await taskModel.findByIdAndUpdate(
-    req.params.subtaskId,
-    {
-      isDone,
-    },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const task = await taskModel.findById(taskId);
+  if (!task) throw new Error('Task not found.');
 
+  // update subtasks
+  if (subtasks?.length > 0) {
+    const subtasksPromises = subtasks.map((subtask) =>
+      subtaskModel.findByIdAndUpdate(
+        subtask._id,
+        {
+          isDone: subtask.isDone,
+        },
+        {
+          runValidators: true,
+        }
+      )
+    );
+
+    await Promise.all(subtasksPromises);
+  }
+
+  // update task's status.
+  if (status) {
+    task.status = status;
+    await task.save();
+  }
   res.status(200).json({
     status: 'success',
-    data: {
-      newsubTask,
-    },
+    task,
   });
 
   try {
   } catch (error) {
     res.send(error.message);
-    console.log('Error in updateSubtask 💥', error);
+    console.log('Error in updateTask 💥', error);
   }
 };

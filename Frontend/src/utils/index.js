@@ -3,9 +3,9 @@ export const groupTasksByStatus = (tasks) => {
   return tasks.reduce((groups, task) => {
     const { status } = task;
     if (!groups[status]) {
-      groups[status] = [];
+      groups[status.toLowerCase()] = [];
     }
-    groups[status].push(task);
+    groups[status.toLowerCase()].push(task);
     return groups;
   }, {});
 };

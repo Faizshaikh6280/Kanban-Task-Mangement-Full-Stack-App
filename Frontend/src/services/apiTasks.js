@@ -54,3 +54,25 @@ export const createSubtasks = async ({ subtasks, taskId }) => {
     toast.error(error.response.data.error);
   }
 };
+
+export const updateTask = async ({ subtasks, status, taskId }) => {
+  try {
+    const dataToUpdate = {};
+    if (subtasks.length > 0) {
+      dataToUpdate.subtasks = subtasks;
+    }
+    if (status) {
+      dataToUpdate.status = status;
+    }
+
+    if (Object.keys(dataToUpdate).length <= 0) {
+      return true;
+    }
+
+    const data = await api.patch(`/api/tasks/${taskId}`, dataToUpdate);
+    return data.data.task;
+  } catch (error) {
+    toast.error(error.response.data.error);
+    console.log(error);
+  }
+};

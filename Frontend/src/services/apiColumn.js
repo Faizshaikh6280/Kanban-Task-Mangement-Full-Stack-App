@@ -16,12 +16,13 @@ export const createManyColumns = async ({ columns, boardId }) => {
 
 export const createColumn = async ({ column, boardSlug }) => {
   try {
-    const data = await api.post(`/api/columns/many`, {
+    const data = await api.post(`/api/columns`, {
       name: column.name,
       color: column.color,
       boardSlug,
     });
-    return data.data.board;
+
+    return data.data.newColumn;
   } catch (error) {
     console.log(error);
     toast.error(error.response.data.error);
