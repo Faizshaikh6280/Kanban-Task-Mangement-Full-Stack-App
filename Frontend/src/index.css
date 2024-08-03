@@ -127,3 +127,10 @@ input:checked + .slider:before {
   display: flex;
   gap: 2.2rem;
 }
+
+.dragging {
+  rotate: 3deg;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+.dragingover {
+}

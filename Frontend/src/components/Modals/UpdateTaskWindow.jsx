@@ -3,6 +3,7 @@ import SelectCategory from '../../ui/SelectCategory';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useUpdateTask } from '../../hooks/api/useUpdateTask';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const sortTasks = function (tasks) {
   return tasks.sort((a, b) => {
@@ -15,7 +16,12 @@ const sortTasks = function (tasks) {
 
 function UpdateTaskWindow({ task }) {
   const { boardname } = useParams();
-  const { data: board } = useQuery({ queryKey: [`${boardname}`] });
+
+  const { authuser } = useAuthContext();
+  const { _id: userId } = authuser;
+
+  const { data: board } = useQuery({ queryKey: [`${userId}-${boardname}`] });
+
   const columnCategory = board.coulmns.map((el) => el.name);
   const [subtasks, setSubtasks] = useState(sortTasks(task.subTasks));
 

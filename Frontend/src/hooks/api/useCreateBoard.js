@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
 import { createBoard } from '../../services/apiBoard';
-
-const userId = '1';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export function useCreateBoard() {
   const queryClient = useQueryClient();
+  const { authuser } = useAuthContext();
+  const { _id: userId } = authuser;
 
   const { isPending: isCreating, mutate: createBoardMutation } = useMutation({
     mutationFn: async ({ name, columnsData, userId }) =>
@@ -19,7 +19,7 @@ export function useCreateBoard() {
     },
     onError: (error) => {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error.response.data.error);
     },
   });
 

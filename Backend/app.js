@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import boardRouter from './routes/boardRoutes.js';
 import taskRouter from './routes/tasksRoutes.js';
 import columnRouter from './routes/coulmnRoutes.js';
+import userRouter from './routes/userRoutes.js';
+
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
@@ -30,6 +32,7 @@ app.use('/api/boards', boardRouter);
 app.use('/api/columns', columnRouter);
 
 app.use('/api/tasks', taskRouter);
+app.use('/api/auth', userRouter);
 
 // This will catch all other routes that did't match above.
 app.all('*', function (req, res, next) {

@@ -6,11 +6,15 @@ import Column from './Column';
 import { useTasks } from '../../hooks/api/useTasks.js';
 import { useBoardContext } from '../../contexts/CurretBoardContext.jsx';
 import { useEffect } from 'react';
+import { useAuthContext } from '../../contexts/AuthContext.jsx';
 
 function Board() {
   const { boardname } = useParams();
+  const { authuser } = useAuthContext();
+  const { _id: userId } = authuser;
   const { isLoading, board } = useBoard(boardname);
-  const { tasks, isLoading: isLoadingTasks } = useTasks('1');
+  const { tasks, isLoading: isLoadingTasks } = useTasks(userId);
+
   const { setCurrentBoard } = useBoardContext();
 
   const groupedTasks = groupTasksByStatus(tasks);

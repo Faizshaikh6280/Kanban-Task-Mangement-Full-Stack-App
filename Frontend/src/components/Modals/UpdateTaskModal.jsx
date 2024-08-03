@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Modal from '../../ui/Modals';
 import UpdateTaskWindow from './UpdateTaskWindow';
 //   const sortedTasks = task.subtasks.sort((a, b) => {

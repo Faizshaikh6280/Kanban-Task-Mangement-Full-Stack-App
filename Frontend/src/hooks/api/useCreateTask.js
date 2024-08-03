@@ -2,12 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { createTask } from '../../services/apiTasks';
 import { useParams } from 'react-router-dom';
-
-const userId = '1';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export function useCreateTask() {
   const queryClient = useQueryClient();
   const { boardname } = useParams();
+  const {
+    authuser: { _id: userId },
+  } = useAuthContext();
 
   const { isPending: isCreating, mutate: createTaskMutation } = useMutation({
     mutationFn: async ({

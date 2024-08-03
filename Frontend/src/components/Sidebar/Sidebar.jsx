@@ -9,11 +9,16 @@ import { useThemeMode } from '../../contexts/DarkModeContext';
 import { useRef } from 'react';
 import AddNewBoardModal from '../Modals/AddNewBoardModal';
 import { useBoards } from '../../hooks/api/useBoards';
+import { LuLogOut } from 'react-icons/lu';
+import { useLogout } from '../../hooks/api/useLogout';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 function Sidebar() {
+  const { authuser, setAuthuser } = useAuthContext();
   const { boardname } = useParams();
-  const { isLoading, boards } = useBoards('1');
+  const { isLoading, boards } = useBoards(authuser._id);
   const { toggleMode, isDarkMode } = useThemeMode();
+  const { logoutMutation } = useLogout();
   const ref = useRef();
   function handleChange() {
     toggleMode();
@@ -72,19 +77,34 @@ function Sidebar() {
                 }`}
               />
             </div>
-            <div
-              className="hide-sidebar flex items-center mt-6 gap-4 select-none cursor-pointer"
-              onClick={() => {
-                const main = document.querySelector('.main');
-                const header = document.querySelector('.header');
+            <div className="flex justify-between items-baseline">
+              <div
+                className="hide-sidebar max-w-fit flex items-center mt-6 gap-4 select-none cursor-pointer"
+                onClick={() => {
+                  const main = document.querySelector('.main');
+                  const header = document.querySelector('.header');
 
-                header.classList.add('hidesidebar');
-                main.classList.add('hidesidebar');
-                ref.current.classList.add('hidesidebar');
-              }}
-            >
-              <BsEyeSlash className="text-3xl" />
-              <span className="text-2xl">Hide Sidebar</span>
+                  header.classList.add('hidesidebar');
+                  main.classList.add('hidesidebar');
+                  ref.current.classList.add('hidesidebar');
+                }}
+              >
+                <BsEyeSlash className="text-3xl" />
+                <span className="text-2xl">Hide Sidebar</span>
+              </div>
+              <LuLogOut
+                className="text-3xl font-semibold cursor-pointer "
+                onClick={() => {
+                  logoutMutation(
+                    {},
+                    {
+                      onSuccess: () => {
+                        setAuthuser(null);
+                      },
+                    }
+                  );
+                }}
+              />
             </div>
           </div>
         </>

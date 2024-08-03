@@ -3,8 +3,10 @@ import coulmnModel from '../models/coulmnModel.js';
 
 export const createColumn = async function (req, res, next) {
   try {
-    const { name, color, boardSlug } = req.body;
-    const board = await boardModel.findOne({ slug: boardSlug });
+    const { name, color, boardSlug, userId } = req.body;
+    const board = await boardModel
+      .findOne({ slug: boardSlug, userId })
+      .populate('coulmns');
 
     if (!board) {
       throw new Error('Board does not exists');

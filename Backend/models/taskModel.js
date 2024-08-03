@@ -6,7 +6,8 @@ const taskSchema = new mongoose.Schema({
     required: [true, 'Title is required'],
   },
   userId: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
     select: false,
   },
   description: String,

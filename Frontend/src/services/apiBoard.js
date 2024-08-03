@@ -2,9 +2,13 @@ import { createManyColumns } from './apiColumn.js';
 import api from './axiosConfig.js';
 import { toast } from 'react-hot-toast';
 
-export const getBoard = async (slug) => {
+export const getBoard = async (slug, userId) => {
   try {
-    const data = await api.get(`/api/boards/${slug}`);
+    const data = await api.get(`/api/boards/${slug}`, {
+      params: {
+        userId,
+      },
+    });
     return data.data.board;
   } catch (error) {
     console.log(error);
@@ -24,8 +28,7 @@ export const createBoard = async ({ name, userId, columnsData }) => {
 
     return board;
   } catch (error) {
-    console.log(error);
-    toast.error(error.response.data.error);
+    throw error;
   }
 };
 

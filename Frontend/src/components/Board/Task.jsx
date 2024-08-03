@@ -1,6 +1,6 @@
 import UpdateTaskModal from '../Modals/UpdateTaskModal';
 
-function Task({ task }) {
+function Task({ task, index }) {
   const completedSubtasks = task.subTasks.filter((el) => el.isDone).length;
   return (
     <li

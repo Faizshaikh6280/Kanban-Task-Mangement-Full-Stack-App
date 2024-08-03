@@ -4,10 +4,13 @@ import SelectCategory from '../../ui/SelectCategory';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { useCreateTask } from '../../hooks/api/useCreateTask';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 function AddNewTaskWindow() {
+  const { authuser } = useAuthContext();
+  const { _id: userId } = authuser;
   const { boardname } = useParams();
-  const { data: board } = useQuery({ queryKey: [`${boardname}`] });
+  const { data: board } = useQuery({ queryKey: [`${userId}-${boardname}`] });
   const columnCategory = board.coulmns.map((el) => el.name);
 
   const [subtasks, setSubtasks] = useState([{ value: '' }]);
@@ -45,7 +48,7 @@ function AddNewTaskWindow() {
       title: formData.title,
       description: formData.description,
       boardSlug: boardname,
-      userId: '1',
+      userId,
       status: selectedCategory.toLowerCase(),
       subtasks: subtasksArr,
     };

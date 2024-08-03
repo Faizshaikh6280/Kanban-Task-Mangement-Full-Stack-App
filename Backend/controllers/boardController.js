@@ -30,8 +30,10 @@ export const createBoard = async function (req, res, next) {
 
 export const getBoard = async function (req, res, next) {
   try {
+    const { userId } = req.query;
+    console.log(userId);
     const board = await boardModel
-      .findOne({ slug: req.params?.name?.toLowerCase().split(' ')[0] })
+      .findOne({ slug: req.params?.name?.toLowerCase().split(' ')[0], userId })
       .populate('coulmns');
 
     if (!board) throw new Error('Board does not exists');

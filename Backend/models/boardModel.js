@@ -9,7 +9,10 @@ const boardSchema = new mongoose.Schema({
     maxLength: [30, 'Maximum length of name is 30 characters.'],
     minLength: [3, 'Minimum length of name is 3 characters.'],
   },
-  userId: String,
+  userId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+  },
   slug: {
     type: String,
   },

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { HiXMark } from 'react-icons/hi2';
 import { useCreateBoard } from '../../hooks/api/useCreateBoard';
-const userId = '1';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 function AddNewBoardWindow() {
+  const { authuser } = useAuthContext();
+  const { _id: userId } = authuser;
   const [columns, setCoulumns] = useState([{ name: '', color: '#645fc6' }]);
   const [boardname, setBoardname] = useState('');
   const { isCreating, createBoardMutation } = useCreateBoard();
