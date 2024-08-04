@@ -16,6 +16,15 @@ export const getBoard = async (slug, userId) => {
   }
 };
 
+export const deleteBoard = async (boardId) => {
+  try {
+    const data = await api.delete(`/api/boards/${boardId}`);
+    return data.data.board;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const createBoard = async ({ name, userId, columnsData }) => {
   try {
     const data = await api.post(`/api/boards/`, { name, userId });

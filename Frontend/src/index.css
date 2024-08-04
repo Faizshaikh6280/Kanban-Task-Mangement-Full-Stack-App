@@ -133,6 +133,21 @@ input:checked + .slider:before {
   height: 12px;
 }
 
+.board-item:hover .borad-trash {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.borad-trash {
+  transition: all 0.2s ease-in;
+  transform: translateX(10px);
+  opacity: 0;
+}
+.borad-trash:hover {
+  color: rgb(225, 80, 80);
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar-track {
   background: #f1f1f1cc; /* Color of the track */
   border-radius: 10px; /* Optional: rounding the corners */

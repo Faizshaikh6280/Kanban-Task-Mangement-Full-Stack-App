@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Logo from '../../ui/Logo';
 
 import { BsGrid1X2 } from 'react-icons/bs';
@@ -12,6 +12,9 @@ import { useBoards } from '../../hooks/api/useBoards';
 import { LuLogOut } from 'react-icons/lu';
 import { useLogout } from '../../hooks/api/useLogout';
 import { useAuthContext } from '../../contexts/AuthContext';
+import { FaTrashCan } from 'react-icons/fa6';
+import { useDeleteBoard } from '../../hooks/api/useDeleteBoard';
+import { useBoardContext } from '../../contexts/CurretBoardContext';
 
 function Sidebar() {
   const { authuser, setAuthuser } = useAuthContext();
@@ -19,8 +22,10 @@ function Sidebar() {
   const { isLoading, boards } = useBoards(authuser._id);
   const { toggleMode, isDarkMode } = useThemeMode();
   const { logoutMutation } = useLogout();
+  const { isDeleting, deleteBoardMuation } = useDeleteBoard();
+  const navigate = useNavigate();
   const ref = useRef();
-
+  const { setCurrentBoard } = useBoardContext();
   function handleChange() {
     toggleMode();
   }
@@ -38,23 +43,39 @@ function Sidebar() {
           <div className="mt-16 tracking-[3px] uppercase text-xl pl-8">
             All boards({boards.length})
           </div>
-          <ul className="boards-list mt-6 flex flex-col gap-6 overflow-y-auto py-4 scroll-smooth">
-            {boards.map((board) => {
+          <ul className="boards-list overflow-x-hidden  mt-6 flex flex-col gap-6 overflow-y-auto py-4 scroll-smooth">
+            {boards.map((board, indx) => {
               return (
-                <Link
+                <div
+                  className="gap-3 board-item flex justify-between items-center"
                   key={board._id}
-                  to={`/${board.slug}`}
-                  className={`py-4 w-full rounded-tr-full rounded-br-full pl-8 flex gap-4 items-center cursor-pointer ${
-                    board.slug === boardname
-                      ? 'bg-primary text-white'
-                      : 'text-custom-text-2'
-                  } `}
                 >
-                  <BsGrid1X2 className="text-[1.7rem]" />{' '}
-                  <span className="overflow-hidden whitespace-nowrap text-ellipsis">
-                    {board.name}
-                  </span>
-                </Link>
+                  <Link
+                    to={`/${board.slug}`}
+                    className={`py-4 w-full rounded-tr-full rounded-br-full pl-8 flex gap-4 items-center cursor-pointer ${
+                      board.slug === boardname
+                        ? 'bg-primary text-white'
+                        : 'text-custom-text-2'
+                    } `}
+                  >
+                    <BsGrid1X2 className="text-[1.7rem]" />{' '}
+                    <span className="overflow-hidden whitespace-nowrap text-ellipsis">
+                      {board.name}
+                    </span>
+                  </Link>
+                  <button disabled={isDeleting} className="borad-trash">
+                    <FaTrashCan
+                      title="delete board"
+                      onClick={() => {
+                        deleteBoardMuation(board._id);
+                        if (boardname === board.slug) {
+                          navigate(`/${boards[indx + 1]?.slug || ''}`);
+                          setCurrentBoard(boards[indx + 1] || null);
+                        }
+                      }}
+                    />
+                  </button>
+                </div>
               );
             })}
           </ul>

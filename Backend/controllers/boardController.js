@@ -65,3 +65,19 @@ export const getAllBoards = async function (req, res, next) {
     console.log('Error in getAllBoards 💥', error);
   }
 };
+
+export const deleteBoard = async function (req, res, next) {
+  try {
+    const { boardId } = req.params;
+    const board = await boardModel.findByIdAndDelete(boardId);
+    res.status(200).json({
+      status: 'sucess',
+      board,
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+    console.log('Error in deleteBoard 💥', error);
+  }
+};

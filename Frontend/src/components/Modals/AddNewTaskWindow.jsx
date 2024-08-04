@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { useCreateTask } from '../../hooks/api/useCreateTask';
 import { useAuthContext } from '../../contexts/AuthContext';
+import toast from 'react-hot-toast';
 
 function AddNewTaskWindow() {
   const { authuser } = useAuthContext();
@@ -33,6 +34,19 @@ function AddNewTaskWindow() {
     e.preventDefault();
 
     let subtasksArr = [];
+
+    if (!selectedCategory) {
+      toast('Task need a status', {
+        icon: '⭐',
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+        duration: 1000,
+      });
+      return;
+    }
 
     if (subtasks.length > 0) {
       subtasksArr = subtasks

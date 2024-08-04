@@ -6,8 +6,8 @@ import CurrentBoardProvider from '../contexts/CurretBoardContext';
 function AppLayout() {
   return (
     <div className="app-layout">
-      <Sidebar />
       <CurrentBoardProvider>
+        <Sidebar />
         <Header />
         <main className="main bg-custom-bg-main text-custom-text-2">
           <Outlet />
