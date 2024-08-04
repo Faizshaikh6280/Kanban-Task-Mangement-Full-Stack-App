@@ -85,7 +85,7 @@ function Sidebar() {
 
           <AddNewBoardModal />
 
-          <div className="bottom px-9 mt-auto bottom-14 w-full">
+          <div className="bottom px-4 md:px-9 mt-auto bottom-14 w-full">
             <div className="bg-custom-bg-main px-4 py-5 rounded-md flex gap-6 justify-center items-center">
               <MdSunny
                 className={`cursor-pointer text-3xl ${

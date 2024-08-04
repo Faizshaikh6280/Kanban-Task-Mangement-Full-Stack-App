@@ -1,4 +1,10 @@
-import { cloneElement, createContext, useContext, useState } from 'react';
+import React, {
+  Children,
+  cloneElement,
+  createContext,
+  useContext,
+  useState,
+} from 'react';
 import { HiXMark } from 'react-icons/hi2';
 import { createPortal } from 'react-dom';
 import useOuterClick from '../hooks/useOuterClick.js';
@@ -28,7 +34,22 @@ function Modal({ children }) {
 
 function Open({ opens: opensWindowName, children }) {
   const { open } = useContext(ModelContext);
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
+
+  const addClickEvent = (child) => {
+    return cloneElement(child, { onClick: () => open(opensWindowName) });
+  };
+
+  if (Array.isArray(children) || children.type === React.Fragment) {
+    return (
+      <>
+        {Children.map(children, (child) =>
+          React.isValidElement(child) ? addClickEvent(child) : child
+        )}
+      </>
+    );
+  } else {
+    return React.isValidElement(children) ? addClickEvent(children) : children;
+  }
 }
 
 function Window({ children, name }) {

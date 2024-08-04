@@ -11,7 +11,7 @@ function Header() {
       className="header bg-custom-bg-secondary text-custom-text-2  border-b-slate-600 border-b-[1px] pt-9 px-8 flex justify-between items-start"
       ref={ref}
     >
-      <h1 className="boardname text-4xl text-custom-text-1 font-semibold">
+      <h1 className="boardname text-3xl md:text-4xl text-custom-text-1 font-semibold">
         {currentBoard?.name}
       </h1>
       <div className="right flex gap-4 items-center">
