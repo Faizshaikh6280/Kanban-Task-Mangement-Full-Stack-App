@@ -133,16 +133,18 @@ input:checked + .slider:before {
   height: 12px;
 }
 
-.board-item:hover .borad-trash {
+:is(.board-item:hover, .column-item:hover) :is(.borad-trash, .column-trash) {
   transform: translateX(0);
   opacity: 1;
 }
 
-.borad-trash {
+.borad-trash,
+.column-trash {
   transition: all 0.2s ease-in;
   transform: translateX(10px);
   opacity: 0;
 }
+.column-trash:hover,
 .borad-trash:hover {
   color: rgb(225, 80, 80);
   cursor: pointer;

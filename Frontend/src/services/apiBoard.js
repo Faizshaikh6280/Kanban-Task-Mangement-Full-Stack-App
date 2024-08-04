@@ -16,9 +16,13 @@ export const getBoard = async (slug, userId) => {
   }
 };
 
-export const deleteBoard = async (boardId) => {
+export const deleteBoard = async ({ boardId, userId }) => {
   try {
-    const data = await api.delete(`/api/boards/${boardId}`);
+    const data = await api.delete(`/api/boards/${boardId}`, {
+      params: {
+        userId,
+      },
+    });
     return data.data.board;
   } catch (error) {
     throw error;

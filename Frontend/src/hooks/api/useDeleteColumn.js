@@ -1,21 +1,21 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { createColumn } from '../../services/apiColumn';
+import { deleteColumn } from '../../services/apiColumn';
 import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext';
 
-export function useCreateColumn() {
+export function useDeleteColumn() {
   const { boardname: boardSlug } = useParams();
   const queryClient = useQueryClient();
   const { authuser } = useAuthContext();
   const { _id: userId } = authuser;
-  const { isPending: isCreating, mutate: createColumnMutation } = useMutation({
-    mutationFn: (column) => createColumn({ column, boardSlug, userId }),
+  const { isPending: isDeleting, mutate: deleteColumnMutation } = useMutation({
+    mutationFn: deleteColumn,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [`${userId}-${boardSlug}`],
       });
-      toast.success('Column has been created 🎉');
+      toast.success('Column has been deleted successfully!!');
     },
     onError: (error) => {
       console.log(error);
@@ -23,5 +23,5 @@ export function useCreateColumn() {
     },
   });
 
-  return { isCreating, createColumnMutation };
+  return { isDeleting, deleteColumnMutation };
 }

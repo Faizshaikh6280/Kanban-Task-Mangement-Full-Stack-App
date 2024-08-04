@@ -67,7 +67,10 @@ function Sidebar() {
                     <FaTrashCan
                       title="delete board"
                       onClick={() => {
-                        deleteBoardMuation(board._id);
+                        deleteBoardMuation({
+                          boardId: board._id,
+                          userId: authuser._id,
+                        });
                         if (boardname === board.slug) {
                           navigate(`/${boards[indx + 1]?.slug || ''}`);
                           setCurrentBoard(boards[indx + 1] || null);

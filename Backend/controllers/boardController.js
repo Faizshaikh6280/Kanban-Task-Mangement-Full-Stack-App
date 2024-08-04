@@ -1,5 +1,8 @@
 import slugify from 'slugify';
 import boardModel from '../models/boardModel.js';
+import columnModel from '../models/coulmnModel.js';
+import taskModel from '../models/taskModel.js';
+import subtaskModel from '../models/subtaskModel.js';
 
 export const createBoard = async function (req, res, next) {
   try {
@@ -69,7 +72,37 @@ export const getAllBoards = async function (req, res, next) {
 export const deleteBoard = async function (req, res, next) {
   try {
     const { boardId } = req.params;
-    const board = await boardModel.findByIdAndDelete(boardId);
+    const { userId } = req.query;
+
+    const board = await boardModel.findById(boardId);
+
+    if (!board) throw new Error('Board does not exists.');
+
+    // delete all columns and taks & subtasks of this board as well.
+    await columnModel.deleteMany({ _id: { $in: board.coulmns } });
+
+    const tasks = await taskModel.find({
+      $and: [{ boardSlug: board.slug }, { userId: userId }],
+    });
+
+    // delete all subtasks of each task.
+    const subtasksDeletePromises = [];
+    const tasksDeletePromise = [];
+
+    tasks.map((task) => {
+      tasksDeletePromise.push(taskModel.findByIdAndDelete(task._id));
+      task.subTasks.map((sub) =>
+        subtasksDeletePromises.push(subtaskModel.findByIdAndDelete(sub))
+      );
+    });
+
+    // delete all subtasks & task.
+    await Promise.all(subtasksDeletePromises);
+    await Promise.all(tasksDeletePromise);
+
+    // delete actual board itself
+    await boardModel.findByIdAndDelete(boardId);
+
     res.status(200).json({
       status: 'sucess',
       board,
