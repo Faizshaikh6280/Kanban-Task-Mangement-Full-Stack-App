@@ -20,6 +20,7 @@ function Sidebar() {
   const { toggleMode, isDarkMode } = useThemeMode();
   const { logoutMutation } = useLogout();
   const ref = useRef();
+
   function handleChange() {
     toggleMode();
   }
@@ -100,6 +101,7 @@ function Sidebar() {
                     {
                       onSuccess: () => {
                         setAuthuser(null);
+                        localStorage.setItem('authuser', null);
                       },
                     }
                   );

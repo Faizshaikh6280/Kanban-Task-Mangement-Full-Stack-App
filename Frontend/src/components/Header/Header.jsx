@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import AddNewTaskModal from '../Modals/AddNewTaskModal';
 import { useBoardContext } from '../../contexts/CurretBoardContext';
+import Spinner from '../../ui/Spinner';
 
 function Header() {
   const ref = useRef();
@@ -12,7 +13,7 @@ function Header() {
       ref={ref}
     >
       <h1 className="boardname text-4xl text-custom-text-1 font-semibold">
-        {currentBoard?.name || ''}
+        {currentBoard?.name || <Spinner />}
       </h1>
       <div className="right flex gap-4 items-center">
         {currentBoard ? (

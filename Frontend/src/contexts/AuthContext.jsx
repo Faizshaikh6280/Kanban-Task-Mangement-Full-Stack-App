@@ -3,7 +3,9 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  const [authuser, setAuthuser] = useState(null);
+  const [authuser, setAuthuser] = useState(
+    JSON.parse(localStorage.getItem('authuser'))
+  );
 
   return (
     <AuthContext.Provider

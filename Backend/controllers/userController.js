@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import User from '../models/userModel.js';
+import userModel from '../models/userModel.js';
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -38,7 +39,17 @@ const createSendToken = (user, res, statusCode) => {
 
 export const signup = async (req, res) => {
   try {
-    const newUser = await User.create(req.body);
+    const { username, email, password } = req.body;
+
+    const user = await userModel.findOne({
+      $or: [{ email: email }, { username: username }],
+    });
+    console.log(user);
+    if (user) {
+      throw new Error('Username or email already exists');
+    }
+
+    const newUser = await User.create({ username, email, password });
 
     createSendToken(newUser, res, 201);
   } catch (error) {

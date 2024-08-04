@@ -7,6 +7,7 @@ import { useTasks } from '../../hooks/api/useTasks.js';
 import { useBoardContext } from '../../contexts/CurretBoardContext.jsx';
 import { useEffect } from 'react';
 import { useAuthContext } from '../../contexts/AuthContext.jsx';
+import Spinner from '../../ui/Spinner.jsx';
 
 function Board() {
   const { boardname } = useParams();
@@ -29,7 +30,11 @@ function Board() {
   );
 
   if (isLoading || isLoadingTasks)
-    return <p className="text-center w-full">Loading...</p>;
+    return (
+      <div className="p-9 h-full w-full flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <div className="p-9 h-full coulmns">

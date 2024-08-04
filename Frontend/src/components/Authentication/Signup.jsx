@@ -28,6 +28,8 @@ function Signup() {
     signupMutation(formData, {
       onSuccess: (user) => {
         setAuthuser(user);
+        localStorage.setItem('authuser', JSON.stringify(user));
+
         setFormData(initialState);
         navigate('/');
       },

@@ -44,7 +44,7 @@ html.dark {
 
 @media screen and (max-width: 530px) {
   .app-layout {
-    @apply grid-cols-[1fr] grid-rows-[8rem_1fr] relative;
+    @apply grid-cols-[1fr] grid-rows-[9rem_1fr] relative;
   }
   .main,
   .header {
@@ -128,9 +128,48 @@ input:checked + .slider:before {
   gap: 2.2rem;
 }
 
-.dragging {
-  rotate: 3deg;
-  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
 }
-.dragingover {
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1cc; /* Color of the track */
+  border-radius: 10px; /* Optional: rounding the corners */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 95, 198, 0.78); /* Color of the thumb */
+  border-radius: 10px; /* Optional: rounding the corners */
+  cursor: grab;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(100, 95, 198); /* Color of the thumb when hovered */
+}
+
+/* Optional: Adding corner for the scrollbar */
+::-webkit-scrollbar-corner {
+  background: #f1f1f1;
+}
+
+/* spinner classess */
+.spinner {
+  width: 11.2px;
+  height: 11.2px;
+  animation: spinner-z355kx 1s infinite linear;
+  border-radius: 11.2px;
+  box-shadow: 28px 0px 0 0 rgba(100, 95, 198, 0.78),
+    17.4px 21.8px 0 0 rgba(100, 95, 198, 0.78),
+    -6.2px 27.2px 0 0 rgba(100, 95, 198, 0.78),
+    -25.2px 12px 0 0 rgba(100, 95, 198, 0.78),
+    -25.2px -12px 0 0 rgba(100, 95, 198, 0.78),
+    -6.2px -27.2px 0 0 rgba(100, 95, 198, 0.78),
+    17.4px -21.8px 0 0 rgba(100, 95, 198, 0.78);
+}
+
+@keyframes spinner-z355kx {
+  to {
+    transform: rotate(360deg);
+  }
 }
