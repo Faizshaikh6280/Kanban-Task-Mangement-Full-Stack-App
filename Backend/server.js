@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv.js';
 import connectToDB from './db/connectToDB.js';
 dotenv.config();
 // for handling javascript syntax error
