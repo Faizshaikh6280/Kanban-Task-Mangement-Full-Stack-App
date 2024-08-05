@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import connectToDB from './db/connectToDB.js';
-dotenv.config({ path: './.env' });
+dotenv.config();
 // for handling javascript syntax error
 process.on('uncaughtException', (err) => {
   console.log(err.name, err.message);
@@ -11,7 +11,6 @@ import app from './app.js';
 
 // connect to mongoDB database
 connectToDB();
-
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log('Server listning on port', port);

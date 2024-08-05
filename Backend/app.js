@@ -8,35 +8,34 @@ import userRouter from './routes/userRoutes.js';
 
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import path from 'path';
 
 const app = express();
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+app.use(morgan('dev'));
+app.use(cors());
 
-const corsOptions = {
-  origin: 'http://localhost:5173', // Your React app's URL
-  optionsSuccessStatus: 200, // For legacy browser support
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-};
-
-app.use(cors(corsOptions));
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.use('/api/boards', boardRouter);
-
 app.use('/api/columns', columnRouter);
-
 app.use('/api/tasks', taskRouter);
 app.use('/api/auth', userRouter);
 
+const __dirname = path.resolve();
+
+// using this we will access our frontend from the server
+app.use(express.static(path.join(__dirname, '/Frontend/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Frontend', 'dist', 'index.html'));
+});
+
 // This will catch all other routes that did't match above.
-app.all('*', function (req, res, next) {
-  next(`Can't find ${req.originalUrl} on this server!`);
+app.use('*', (req, res) => {
+  res.send(`Can't find the ${req.originalUrl} on this server!`);
 });
 
 // Gloabr error handler.

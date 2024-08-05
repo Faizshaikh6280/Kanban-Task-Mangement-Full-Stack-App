@@ -1,6 +1,9 @@
 {
-  "dependencies": {
-    "cors": "^2.8.5",
-    "react-beautiful-dnd": "^13.1.1"
+  "name": "taskmanager",
+  "version": "1.0.0",
+  "main": "Backend/server.js",
+  "scripts": {
+    "start": "node Backend/server.js",
+    "build": "npm install --prefix Backend && npm install --prefix Frontend && npm run build --prefix Frontend"
   }
 }
