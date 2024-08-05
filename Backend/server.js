@@ -1,12 +1,14 @@
-import dotenv from 'dotenv.js';
+import dotenv from 'dotenv';
 import connectToDB from './db/connectToDB.js';
 dotenv.config();
+
 // for handling javascript syntax error
 process.on('uncaughtException', (err) => {
   console.log(err.name, err.message);
   console.log('uncaught Exception 💥 Shutting down...');
   process.exit(1);
 });
+
 import app from './app.js';
 
 // connect to mongoDB database
